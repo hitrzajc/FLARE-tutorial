@@ -5,7 +5,7 @@
 ### Deploy smart contract
 Primer deploya smart contracta. Hardhat najprej skompila in nato izvede transakcijo.
 ```shell
-npx hardhat ignition deploy ignition/modules/example_contract.ts --network coston_flare
+npx hardhat ignition deploy ignition/modules/Token.ts --network coston_flare
 ```
 Če ne uprabimo zastavice --newtork se deploy zgodi lokalno.
 
