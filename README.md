@@ -84,7 +84,7 @@ The script [`readBlocks.ts`](/scripts/readBlocks.ts) continuously monitors past 
 
 
 ### Interacting with an account 
-The script [`accountInteraction.ts`](scripts/accountInteraction.ts) provides a simple function to check and print account's balance. The main function checks and prints the test account's balance, transfers 1 CFLR to in and prints its balance after the transaction. 
+The script [`accountInteraction.ts`](scripts/accountInteraction.ts) provides a simple function to check and print account's balance. The main function checks and prints the test account's balance, transfers 1 CFLR to it and prints its balance after the transaction. 
 
 
 
