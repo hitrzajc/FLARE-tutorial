@@ -53,34 +53,10 @@ Running this will:
 If you rerun it, it won’t redeploy unless something changes.
 
 
-### Creating and deploying an ERC-20 token
-By deploying the [`Token.ts`](ignition/modules/Token.ts) script, you will deploy your ERC-20 token. The Solidity code is written in [`Token.sol`](contracts/Token.sol) file. 
-
-#### Problems 
-If you clone this code, deploying will probably fail with 
-
-```shell
-[ Token ] reconciliation failed ⛔
-The module contains changes to executed futures:
-
-Token#Token:
-From account has been changed from 0xaddress1 to 0xaddress2
-
-Consider modifying your module to remove the inconsistencies with deployed futures.
-```
-
-
-This happens because Ignition tracks deployments - it keeps a record of what has already been deployed before. When you run `npx hardhat ignition deploy` again, Ignition compares the module definition with the existing deployment state.
-
-The first deployment used the contract owner’s address from the repository. Now you are deploying with a different account, which causes a mismatch. This mismatch is detected and a warning is issued. 
-
 If you want a fresh deployment, you should delete Ignition’s deployment state folder [`ignition/deployments`](ignition/deployments) and redeploy. 
 
-
-
-
-
-
+### Creating and deploying an ERC-20 token
+By deploying the [`Token.ts`](ignition/modules/Token.ts) script, you will deploy your ERC-20 token. The Solidity code is written in [`Token.sol`](contracts/Token.sol) file. 
 
 
 
