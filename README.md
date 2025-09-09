@@ -57,9 +57,10 @@ If you rerun it, it won’t redeploy unless something changes.
 
 
 
-### Creating and deploying an ERC-20 token
+### Creating and deploying an ERC-20 token and interacting with it
 By deploying the [`Token.ts`](ignition/modules/Token.ts) script, you will deploy your ERC-20 token. The Solidity code is written in [`Token.sol`](contracts/Token.sol) file. 
 
+Now, you can send this tokens to any account. You can test that in [`testToken.ts`](scripts/testToken.ts).
 
 
 ### Creating and running scripts (block indexer)
