@@ -1,7 +1,10 @@
-# Primer [Hardhat](https://hardhat.org/) projekta
+# [Hardhat](https://hardhat.org/) project examples
+
+> **_NOTE:_**  **You are advised to follow the tutorial in [Tutorial dokument] and try to implement/figure out things by yourself** (using provided documentation, Google and ChatGPT :)). 
+However, a bit more detailed guide to creating and deploying some smart contracts is provided here in case of any trouble. 
 
 
-## Creating and deploying a smart contract (ERC-20 token)
+##  Environment
 
 
 [Instructions](https://hardhat.org/docs/getting-started#getting-started-with-hardhat-3):
@@ -36,14 +39,22 @@ Hardhat (version 3) creates an Ignition folder (a deployment framework that repl
 - Deployment order.
 - Idempotency (if you rerun, it won’t redeploy if nothing changed).
 
-To deploy, run:
+To deploy, replace `MODUL_NAME.ts` with actual modul name and run:
 ```shell 
-npx hardhat ignition deploy ./ignition/modules/Token.ts --network coston_flare
+npx hardhat ignition deploy ./ignition/modules/MODULE_NAME.ts --network coston_flare
 ```
 If you omit the `--network` flag, the deployment will run locally. 
 
 
-Running this will compile contract, deploy [`Token.ts`](ignition/modules/Token.ts) with constructor arguments that are written in it (you can change them); it will store metadata in [`ignition/deployments`](ignition/deployments). If you rerun it, it won’t redeploy unless something changes (you can still write `deploy.ts` script manually if you wish).
+Running this will:
+- compile contract;
+- deploy chosen module with constructor arguments that are written in it (you can change them);
+- store metadata in [`ignition/deployments`](ignition/deployments). 
+If you rerun it, it won’t redeploy unless something changes.
+
+
+### Creating and deploying an ERC-20 token
+By deploying the [`Token.ts`](ignition/modules/Token.ts) script, you will deploy your ERC-20 token. The Solidity code is written in [`Token.sol`](contracts/Token.sol) file. 
 
 #### Problems 
 If you clone this code, deploying will probably fail with 
@@ -71,14 +82,30 @@ If you want a fresh deployment, you should delete Ignition’s deployment state 
 
 
 
----
 
 
-### Scripts
-Svoje skripte damo v mapo `./scripts/` in jih lahko poženemo
+### Creating and running scripts (block indexer)
+All your scripts can be put in the [`scripts`](scripts) folder. You run a script `example_script.ts` with:
 ```shell
 npx hardhat run scripts/example_script.ts
 ```
+
+
+The script [`readBlocks.ts`](/scripts/readBlocks.ts) continuously monitors past and new blocks on Coston and prints every ERC20 token transfer it finds.
+
+> More detailed desctiption of the script if you need additional explanation.
+> - The script connects to the Coston blockchain via an RPC URL (ethers.JsonRpcProvider).
+> - It sets up an Interface for parsing ERC20 Transfer events using a minimal ABI.
+> - It fetches the latest block number and starts scanning blocks from blockNumber - 100 (initial buffer).
+> - It loops infinitely over blocks, and for each block:
+>     - Fetches the block to make sure it exists.
+>     - Gets all logs/events from that block.
+>     - Parses logs to detect ERC20 Transfer events.
+>     - Prints the sender (from), recipient (to), amount, and contract address.
+>     - If an error occurs (e.g., block not available), it waits 2 seconds and retries the same block.
+
+
+
 
 ### Running Tests
 
