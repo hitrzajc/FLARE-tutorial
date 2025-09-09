@@ -30,7 +30,7 @@ npx hardhat build
 ```
 
 #### Deployment
-Hardhat (version 3) creates an Ignition folder ((a deployment framework that replaces the need for a manual `deploy.ts` script)). This folder manages:
+Hardhat (version 3) creates an Ignition folder (a deployment framework that replaces the need for a manual `deploy.ts` script). This folder manages:
 - Which contracts you want to deploy.
 - Constructor parameters.
 - Deployment order.
