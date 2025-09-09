@@ -1,9 +1,8 @@
 import { buildModule } from "@nomicfoundation/hardhat-ignition/modules";
 
-export default buildModule("CounterModule", (m) => {
-  const counter = m.contract("Counter");
-
-  m.call(counter, "incBy", [5n]);
-
-  return { counter };
+const CounterModule = buildModule("CounterModule", (m) => {
+  const counter = m.contract("Counter"); // name matches your Solidity contract name
+  return { counter }; 
 });
+
+export default CounterModule; // export the module for use in deployment scripts

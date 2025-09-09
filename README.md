@@ -21,9 +21,12 @@ Modify existing `hardhat.config.ts` so that `evmVersion = "london"` (already don
 Variables `COSTON_FLARE_RPC_URL` and `ACC_PRIVATE_KEY` need to be set. 
 You can use [Hardhat keystore for managing secrets](https://hardhat.org/docs/learn-more/deploying-contracts#managing-secrets).
 
+> You can use `.env` file to store the credentials, but _do not forget_ to add `.env` to your `.gitignore` file!
+
 Set:
 - `COSTON_FLARE_RPC_URL`=[https://coston-api.flare.network/ext/bc/C/rpc]()
 - `ACC_PRIVATE_KEY`=_”YOUR_PRIVATE_KEY”_
+
 
 
 #### Build
@@ -53,7 +56,6 @@ Running this will:
 If you rerun it, it won’t redeploy unless something changes.
 
 
-If you want a fresh deployment, you should delete Ignition’s deployment state folder [`ignition/deployments`](ignition/deployments) and redeploy. 
 
 ### Creating and deploying an ERC-20 token
 By deploying the [`Token.ts`](ignition/modules/Token.ts) script, you will deploy your ERC-20 token. The Solidity code is written in [`Token.sol`](contracts/Token.sol) file. 
@@ -80,6 +82,9 @@ The script [`readBlocks.ts`](/scripts/readBlocks.ts) continuously monitors past 
 >     - Prints the sender (from), recipient (to), amount, and contract address.
 >     - If an error occurs (e.g., block not available), it waits 2 seconds and retries the same block.
 
+
+### Interacting with an account 
+The script [`accountInteraction.ts`](scripts/accountInteraction.ts) provides a simple function to check and print account's balance. The main function checks and prints the test account's balance, transfers 1 CFLR to in and prints its balance after the transaction. 
 
 
 
