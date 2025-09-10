@@ -90,7 +90,7 @@ event Transfer(address indexed from, address indexed to, uint256 value);
 > - It fetches the latest block number and starts scanning blocks from blockNumber - 100 (initial buffer).
 > - It loops infinitely over blocks, and for each block:
 >     - Fetches the block to make sure it exists.
->     - Gets all logs/events from that block .
+>     - Gets all logs/events from that block.
 >     - Parses logs to detect ERC20 Transfer events.
 >     - Prints the sender (from), recipient (to), amount, and contract address.
 >     - If an error occurs (e.g., block not available), it waits 2 seconds and retries the same block.
