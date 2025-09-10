@@ -63,14 +63,26 @@ By deploying the [`Token.ts`](ignition/modules/Token.ts) script, you will deploy
 Now, you can send this tokens to any account. You can test that in [`testToken.ts`](scripts/testToken.ts).
 
 
-### Creating and running scripts (block indexer)
+### Creating and running scripts 
 All your scripts can be put in the [`scripts`](scripts) folder. You run a script `example_script.ts` with:
 ```shell
 npx hardhat run scripts/example_script.ts
 ```
 
+### Indexer
+A blockchain indexer is a specialized tool that extracts transaction data from blockchain nodes, transforms it into a machine and human-readable form (and loads it into a database for easy querying).
 
-The script [`readBlocks.ts`](/scripts/readBlocks.ts) continuously monitors past and new blocks on Coston and prints every ERC20 token transfer it finds.
+The script [`readBlocks.ts`](/scripts/readBlocks.ts) continuously monitors past and new blocks on Coston and prints every ERC-20 token transfer it finds.
+
+#### ERC-20 token transfers
+If you make an ERC-20 transfer, internal balances in the token's contract storage are updated and this information does not appear as a native blockchain transaction between two addresses. The transaction in the blockchain is just a request to a contract. 
+To get the data about ERC-20 transfers, we need to read logs.
+When a smart contract executes, it can emit events/logs. They tell you what happened inside a transaction that isn’t obvious just from state changes. 
+
+The ERC-20 standard says every token contract must emit a `Transfer` event:
+```shell
+event Transfer(address indexed from, address indexed to, uint256 value);
+```
 
 > More detailed desctiption of the script if you need additional explanation.
 > - The script connects to the Coston blockchain via an RPC URL (ethers.JsonRpcProvider).
@@ -78,7 +90,7 @@ The script [`readBlocks.ts`](/scripts/readBlocks.ts) continuously monitors past 
 > - It fetches the latest block number and starts scanning blocks from blockNumber - 100 (initial buffer).
 > - It loops infinitely over blocks, and for each block:
 >     - Fetches the block to make sure it exists.
->     - Gets all logs/events from that block.
+>     - Gets all logs/events from that block 
 >     - Parses logs to detect ERC20 Transfer events.
 >     - Prints the sender (from), recipient (to), amount, and contract address.
 >     - If an error occurs (e.g., block not available), it waits 2 seconds and retries the same block.
