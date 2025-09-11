@@ -118,7 +118,7 @@ EventFragment {
  anonymous: false
 }
 
-1
+```
 
 > More detailed desctiption of the script if you need additional explanation.
 > - The script connects to the Coston blockchain via an RPC URL (ethers.JsonRpcProvider).
