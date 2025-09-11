@@ -5,7 +5,6 @@ dotenv.config();
 
 const data = {
     url: process.env.COSTON_FLARE_RPC_URL,
-    privateKeys: [process.env.PRIVATE_KEY],
     abi : ["event Transfer(address indexed from, address indexed to, uint amount)"]
 }
 

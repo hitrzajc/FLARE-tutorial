@@ -72,7 +72,7 @@ npx hardhat run scripts/example_script.ts
 ### Indexer
 A blockchain indexer is a specialized tool that extracts transaction data from blockchain nodes, transforms it into a machine and human-readable form (and loads it into a database for easy querying).
 
-The script [`readBlocks.ts`](/scripts/readBlocks.ts) continuously monitors past and new blocks on Coston and prints every ERC-20 token transfer it finds.
+The script [`indexer.ts`](/scripts/indexer.ts) continuously monitors past and new blocks on Coston and prints every ERC-20 token transfer it finds.
 
 #### ERC-20 token transfers
 If you make an ERC-20 transfer, internal balances in the token's contract storage are updated and this information does not appear as a native blockchain transaction between two addresses. The transaction in the blockchain is just a request to a contract. 
