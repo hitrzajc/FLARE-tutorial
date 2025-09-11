@@ -69,7 +69,7 @@ All your scripts can be put in the [`scripts`](scripts) folder. You run a script
 npx hardhat run scripts/example_script.ts
 ```
 
-### Indexer
+### Indexer (desctiption also in tutorial document)
 A blockchain indexer is a specialized tool that extracts transaction data from blockchain nodes, transforms it into a machine and human-readable form (and loads it into a database for easy querying).
 
 The script [`indexer.ts`](/scripts/indexer.ts) continuously monitors past and new blocks on Coston and prints every ERC-20 token transfer it finds.
@@ -79,14 +79,48 @@ If you make an ERC-20 transfer, internal balances in the token's contract storag
 To get the data about ERC-20 transfers, we need to read logs.
 When a smart contract executes, it can emit events/logs. They tell you what happened inside a transaction that isn’t obvious just from state changes. 
 
-The ERC-20 standard says every token contract must emit a `Transfer` event:
+The ERC-20 standard says every token contract must emit a `Transfer` event. This is a parsed event fragment that belongs to a `Transfer` event:
 ```shell
-event Transfer(address indexed from, address indexed to, uint256 value);
+EventFragment {
+ type: 'event',
+ inputs: [
+   ParamType {
+     name: 'from',
+     type: 'address',
+     baseType: 'address',
+     indexed: true,
+     components: null,
+     arrayLength: null,
+     arrayChildren: null
+   },
+   ParamType {
+     name: 'to',
+     type: 'address',
+     baseType: 'address',
+     indexed: true,
+     components: null,
+     arrayLength: null,
+     arrayChildren: null
+   },
+   ParamType {
+     name: 'value',
+     type: 'uint256',
+     baseType: 'uint256',
+     indexed: false,
+     components: null,
+     arrayLength: null,
+     arrayChildren: null
+   }
+ ],
+ name: 'Transfer',
+ anonymous: false
+}
+
 ```
 
 > More detailed desctiption of the script if you need additional explanation.
 > - The script connects to the Coston blockchain via an RPC URL (ethers.JsonRpcProvider).
-> - It sets up an Interface for parsing ERC20 Transfer events using a minimal ABI.
+> - It sets up an Interface for parsing ERC20 Transfer events using an ABI that was created when we deployed our ERC-20 token.
 > - It fetches the latest block number and starts scanning blocks from blockNumber - 100 (initial buffer).
 > - It loops infinitely over blocks, and for each block:
 >     - Fetches the block to make sure it exists.

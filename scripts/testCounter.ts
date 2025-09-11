@@ -3,6 +3,9 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 
+import fs from "fs";
+const contractJson = JSON.parse(fs.readFileSync("artifacts/contracts/Counter.sol/Counter.json", "utf8"));
+
 function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -10,11 +13,8 @@ function sleep(ms: number) {
 
 const provider = new ethers.JsonRpcProvider(process.env.COSTON_FLARE_RPC_URL);  
 const wallet = new ethers.Wallet(process.env.PRIVATE_KEY!, provider);  
-const address = "0x605D385a80C1608AC79337fb2223b0524dd3AE5e";  // replace with your deployed contract address
-const abi = [
-  "function count() view returns (uint256)",
-  "function increment()"
-];
+const address = "0xEaAE7339cf6F99FF587710561ECBBFf1fB0bD21f";  // replace with your deployed contract address
+const abi = contractJson.abi; // ABI from the compiled contract JSON artifact
 
 const contract = new ethers.Contract(address, abi, wallet);
 

@@ -2,6 +2,10 @@ import { ethers } from "ethers";
 import * as dotenv from "dotenv";
 dotenv.config();
 
+import fs from "fs";
+const contractJson = JSON.parse(fs.readFileSync("artifacts/contracts/Token.sol/Token.json", "utf8"));
+
+
 const data = {
     url: process.env.COSTON_FLARE_RPC_URL,
     privateKey: process.env.PRIVATE_KEY,
@@ -13,14 +17,10 @@ async function main() {
     // Connect to the Coston network
     const provider = new ethers.JsonRpcProvider(data.url);
     const wallet = new ethers.Wallet(data.privateKey!, provider);
-    console.log(`Using address ${wallet.address}`);
+    console.log(`Senfing from ${wallet.address}`);
 
     // Connect to the deployed token contract
-    const tokenAbi = [
-        "function balanceOf(address owner) view returns (uint256)",
-        "function transfer(address to, uint amount) returns (bool)",
-        "event Transfer(address indexed from, address indexed to, uint amount)",
-    ];
+    const tokenAbi = contractJson.abi;
     const tokenContract = new ethers.Contract(data.tokenAddress, tokenAbi, wallet);
 
     // Check the initial balance of the recipient

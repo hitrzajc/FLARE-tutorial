@@ -2,10 +2,13 @@ import { ethers } from "ethers";
 import * as dotenv from "dotenv";
 dotenv.config();
 
+import fs from "fs";
+
+const contractJson = JSON.parse(fs.readFileSync("artifacts/contracts/Token.sol/Token.json", "utf8"));
 
 const data = {
     url: process.env.COSTON_FLARE_RPC_URL,
-    abi : ["event Transfer(address indexed from, address indexed to, uint amount)"]
+    abi: contractJson.abi, // ABI from the compiled Token.sol contract JSON artifact
 }
 
 const initialBufferSize = 100; 
@@ -32,11 +35,13 @@ for (let i = blockNumber - initialBufferSize; true; i++) {
 
         for (let log of logs) {
             const parsed = iface.parseLog(log);
-            if (parsed == null) continue;
-            // const amount = ethers.formatUnits(parsed.args.amount, 18); // safely handle BigInt
+            if (!parsed || parsed.name !== "Transfer") continue; // we are interested only in Transfer events
+          
+            console.log("--------------------------------------------------")
             console.log(
-              `> Transfer detected: from ${parsed.args.from} to ${parsed.args.to}; amount ${parsed.args.amount} on contract ${log.address}.`
+            ` ERC-20 transfer detected: from ${parsed.args.from} to ${parsed.args.to}. \n Value: ${parsed.args.value}  on contract ${log.address} \n Transaction hash: ${log.transactionHash}`
             );
+            console.log("--------------------------------------------------")
         }
     } catch (e) {
         i--;
@@ -44,3 +49,4 @@ for (let i = blockNumber - initialBufferSize; true; i++) {
     }
 
 }
+

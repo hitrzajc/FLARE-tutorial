@@ -6,3 +6,4 @@ const CounterModule = buildModule("CounterModule", (m) => {
 });
 
 export default CounterModule; // export the module for use in deployment scripts
+
