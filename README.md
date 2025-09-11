@@ -74,10 +74,12 @@ A blockchain indexer is a specialized tool that extracts transaction data from b
 
 The script [`indexer.ts`](/scripts/indexer.ts) continuously monitors past and new blocks on Coston and prints every ERC-20 token transfer it finds.
 
+
 #### ERC-20 token transfers
 If you make an ERC-20 transfer, internal balances in the token's contract storage are updated and this information does not appear as a native blockchain transaction between two addresses. The transaction in the blockchain is just a request to a contract. 
 To get the data about ERC-20 transfers, we need to read logs.
 When a smart contract executes, it can emit events/logs. They tell you what happened inside a transaction that isn’t obvious just from state changes. 
+
 
 The ERC-20 standard says every token contract must emit a `Transfer` event. This is a parsed event fragment that belongs to a `Transfer` event:
 ```shell
@@ -116,7 +118,7 @@ EventFragment {
  anonymous: false
 }
 
-```
+1
 
 > More detailed desctiption of the script if you need additional explanation.
 > - The script connects to the Coston blockchain via an RPC URL (ethers.JsonRpcProvider).
