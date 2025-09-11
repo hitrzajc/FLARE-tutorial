@@ -34,7 +34,7 @@ const config: HardhatUserConfig = {
       type: "http",
       chainType: "l1",
       url: configVariable("COSTON_FLARE_RPC_URL"),
-      accounts: [configVariable("ACC1_PRIVATE_KEY")],
+      accounts: [configVariable("ACC_PRIVATE_KEY")],
     },
   },
 };

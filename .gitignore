@@ -21,3 +21,6 @@
 
 # Deployments data, so contract can be freshly deployed
 ignition/deployments/chain-16/*
+
+# Environment variables file
+.env
